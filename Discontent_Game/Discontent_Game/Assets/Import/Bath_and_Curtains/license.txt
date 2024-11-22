@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bath and Curtains
+* source:	https://sketchfab.com/3d-models/bath-and-curtains-520df9a8f271449c9aceab6d6e1fd785
+* author:	OsianOHM (https://sketchfab.com/OsianOHM)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bath and Curtains" (https://sketchfab.com/3d-models/bath-and-curtains-520df9a8f271449c9aceab6d6e1fd785) by OsianOHM (https://sketchfab.com/OsianOHM) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

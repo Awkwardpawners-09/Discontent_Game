@@ -1,0 +1,11 @@
+Model Information:
+* title:	Shoes & Cabinet
+* source:	https://sketchfab.com/3d-models/shoes-cabinet-686f75b206e748fc8ccf86196ca468a3
+* author:	Muhammad (https://sketchfab.com/muhammadhanan066)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Shoes & Cabinet" (https://sketchfab.com/3d-models/shoes-cabinet-686f75b206e748fc8ccf86196ca468a3) by Muhammad (https://sketchfab.com/muhammadhanan066) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

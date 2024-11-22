@@ -1,0 +1,11 @@
+Model Information:
+* title:	Painted wooden door || Gameready PBR
+* source:	https://sketchfab.com/3d-models/painted-wooden-door-gameready-pbr-cae68b79395249fd9a0c748af3b47b56
+* author:	ebuchij animeshnik (https://sketchfab.com/Anime-na-ave-mat-v-kanave)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Painted wooden door || Gameready PBR" (https://sketchfab.com/3d-models/painted-wooden-door-gameready-pbr-cae68b79395249fd9a0c748af3b47b56) by ebuchij animeshnik (https://sketchfab.com/Anime-na-ave-mat-v-kanave) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

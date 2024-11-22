@@ -1,0 +1,11 @@
+Model Information:
+* title:	Carton Box_06_Open
+* source:	https://sketchfab.com/3d-models/carton-box-06-open-ad0a743111ca404b95b32800bd1e17fe
+* author:	Pixeled Bun (https://sketchfab.com/pixeledbun)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Carton Box_06_Open" (https://sketchfab.com/3d-models/carton-box-06-open-ad0a743111ca404b95b32800bd1e17fe) by Pixeled Bun (https://sketchfab.com/pixeledbun) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

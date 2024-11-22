@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wrinkled Pillow
+* source:	https://sketchfab.com/3d-models/wrinkled-pillow-407d429c4e264c14bd89e4f1aa13ca9d
+* author:	lucapianta (https://sketchfab.com/lucapianta)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wrinkled Pillow" (https://sketchfab.com/3d-models/wrinkled-pillow-407d429c4e264c14bd89e4f1aa13ca9d) by lucapianta (https://sketchfab.com/lucapianta) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

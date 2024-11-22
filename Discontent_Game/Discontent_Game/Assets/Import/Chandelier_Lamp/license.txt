@@ -1,0 +1,11 @@
+Model Information:
+* title:	Chandelier Lamp
+* source:	https://sketchfab.com/3d-models/chandelier-lamp-a8bc9681ae58429f88b0fc5d22c00b49
+* author:	TUJM (https://sketchfab.com/ggflutter)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Chandelier Lamp" (https://sketchfab.com/3d-models/chandelier-lamp-a8bc9681ae58429f88b0fc5d22c00b49) by TUJM (https://sketchfab.com/ggflutter) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

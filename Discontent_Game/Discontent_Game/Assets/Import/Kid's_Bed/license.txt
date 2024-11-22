@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kid's Bed
+* source:	https://sketchfab.com/3d-models/kids-bed-7adab9a0149c4300baf52396b1e7be4a
+* author:	Bognar Gabriella (https://sketchfab.com/bogabria)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kid's Bed" (https://sketchfab.com/3d-models/kids-bed-7adab9a0149c4300baf52396b1e7be4a) by Bognar Gabriella (https://sketchfab.com/bogabria) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

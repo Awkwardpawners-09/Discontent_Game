@@ -1,0 +1,11 @@
+Model Information:
+* title:	Carton Box_05_Closed
+* source:	https://sketchfab.com/3d-models/carton-box-05-closed-a748c93c65fa4d8c9136bc9e9c806e99
+* author:	Pixeled Bun (https://sketchfab.com/pixeledbun)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Carton Box_05_Closed" (https://sketchfab.com/3d-models/carton-box-05-closed-a748c93c65fa4d8c9136bc9e9c806e99) by Pixeled Bun (https://sketchfab.com/pixeledbun) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

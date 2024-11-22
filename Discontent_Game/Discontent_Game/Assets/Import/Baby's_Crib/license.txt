@@ -1,0 +1,11 @@
+Model Information:
+* title:	Baby's Crib
+* source:	https://sketchfab.com/3d-models/babys-crib-e562a4f93f5d4e089ea6561c8388dcf3
+* author:	Akinremi (https://sketchfab.com/Akinremi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Baby's Crib" (https://sketchfab.com/3d-models/babys-crib-e562a4f93f5d4e089ea6561c8388dcf3) by Akinremi (https://sketchfab.com/Akinremi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
