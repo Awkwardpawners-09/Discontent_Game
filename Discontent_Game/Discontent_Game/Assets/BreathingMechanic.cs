@@ -8,27 +8,36 @@ public class BreathingMechanic : MonoBehaviour
     public Light flashlight; // Assign the flashlight Light component in the Inspector
     public AudioClip normalBreathingSound; // Audio for normal breathing
     public AudioClip heavyBreathingSound; // Audio for heavy breathing
+    public AudioClip hauntingSound; // Audio for the haunting event
 
     [Header("Breathing Timers")]
     public float heavyBreathingDelay = 8f; // Time in seconds before heavy breathing starts
     public float normalBreathingDelay = 5f; // Time in seconds before normal breathing starts
+    public float hauntingTriggerDelay = 12f; // Time in seconds before haunting starts after heavy breathing
+    public float hauntingDuration = 30f; // Duration of haunting sound in seconds
 
     [Header("Player State")]
     public bool isInDanger = false; // Toggle to indicate if the player is in danger
 
     private AudioSource breathingAudioSource;
+    private AudioSource hauntingAudioSource;
     private float flashlightOffTimer = 0f;
     private float flashlightOnTimer = 0f;
     private bool isFlashlightOn = true;
-
     private bool isCurrentlyHeavyBreathing = false;
+    private float heavyBreathingTimer = 0f; // Tracks time spent in heavy breathing
 
     void Start()
     {
-        // Initialize the audio source
+        // Initialize the breathing audio source
         breathingAudioSource = gameObject.AddComponent<AudioSource>();
         breathingAudioSource.loop = true;
         breathingAudioSource.playOnAwake = false;
+
+        // Initialize the haunting audio source
+        hauntingAudioSource = gameObject.AddComponent<AudioSource>();
+        hauntingAudioSource.loop = false;
+        hauntingAudioSource.playOnAwake = false;
 
         if (flashlight == null)
         {
@@ -60,6 +69,22 @@ public class BreathingMechanic : MonoBehaviour
                     HandleFlashlightOff();
                 }
             }
+        }
+
+        // Check if heavy breathing has lasted long enough to trigger haunting
+        if (isCurrentlyHeavyBreathing)
+        {
+            heavyBreathingTimer += Time.deltaTime;
+
+            if (heavyBreathingTimer >= hauntingTriggerDelay)
+            {
+                TriggerHaunting();
+                heavyBreathingTimer = 0f; // Reset the timer after triggering haunting
+            }
+        }
+        else
+        {
+            heavyBreathingTimer = 0f; // Reset timer if heavy breathing stops
         }
 
         Debug.Log($"Player Breathing: {(isCurrentlyHeavyBreathing ? "Heavy" : "Normal")} | Timer (Off): {flashlightOffTimer:F1} | Timer (On): {flashlightOnTimer:F1}");
@@ -109,5 +134,25 @@ public class BreathingMechanic : MonoBehaviour
             isCurrentlyHeavyBreathing = false;
             Debug.Log("Normal Breathing started.");
         }
+    }
+
+    private void TriggerHaunting()
+    {
+        if (hauntingSound != null)
+        {
+            hauntingAudioSource.clip = hauntingSound;
+            hauntingAudioSource.volume = 1f; // Adjust volume as needed
+            hauntingAudioSource.Play();
+            Debug.Log("Haunting triggered!");
+
+            StartCoroutine(StopHauntingAfterDuration());
+        }
+    }
+
+    private System.Collections.IEnumerator StopHauntingAfterDuration()
+    {
+        yield return new WaitForSeconds(hauntingDuration);
+        hauntingAudioSource.Stop();
+        Debug.Log("Haunting ended.");
     }
 }
