@@ -1,0 +1,11 @@
+Model Information:
+* title:	keys (2)
+* source:	https://sketchfab.com/3d-models/keys-2-7105cbae23c643479b03123c240683da
+* author:	infoasdd (https://sketchfab.com/infoasd)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "keys (2)" (https://sketchfab.com/3d-models/keys-2-7105cbae23c643479b03123c240683da) by infoasdd (https://sketchfab.com/infoasd) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
