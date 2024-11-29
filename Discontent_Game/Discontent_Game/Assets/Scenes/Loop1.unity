@@ -41345,7 +41345,7 @@ MonoBehaviour:
   normalBreathingSound: {fileID: 8300000, guid: e3201490a0df76542a6b84863a432983,
     type: 3}
   heavyBreathingSound: {fileID: 8300000, guid: c56cef921d2a47849acf63173d35086f, type: 3}
-  hauntingSound: {fileID: 0}
+  hauntingSound: {fileID: 8300000, guid: 58390c885b213814cbb9cfe6ba4280b8, type: 3}
   heavyBreathingDelay: 8
   normalBreathingDelay: 5
   hauntingTriggerDelay: 12
@@ -68508,7 +68508,7 @@ PrefabInstance:
     - target: {fileID: 949536107396532943, guid: 4f5fea46d0c567446b768005952642f8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.85864
+      value: 59.3
       objectReference: {fileID: 0}
     - target: {fileID: 949536107396532943, guid: 4f5fea46d0c567446b768005952642f8,
         type: 3}
