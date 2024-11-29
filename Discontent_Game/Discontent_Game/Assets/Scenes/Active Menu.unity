@@ -25795,7 +25795,7 @@ MonoBehaviour:
   startButton: {fileID: 743654599}
   clickSound: {fileID: 8300000, guid: 9ba79df969b169b428b7dccbac26cf86, type: 3}
   canvasGroup: {fileID: 350576023}
-  nextSceneName: Loop1
+  nextSceneName: StartingLoop
   fadeDuration: 1
 --- !u!4 &747084944 stripped
 Transform:
