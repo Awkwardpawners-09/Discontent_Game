@@ -17,6 +17,7 @@ public class BreathingMechanic : MonoBehaviour
     public float hauntingDuration = 30f; // Duration of haunting sound in seconds
 
     [Header("Player State")]
+    public GameObject playerObject; // The object to consider as the player
     public bool isInDanger = false; // Toggle to indicate if the player is in danger
 
     private AudioSource breathingAudioSource;
@@ -26,6 +27,7 @@ public class BreathingMechanic : MonoBehaviour
     private bool isFlashlightOn = true;
     private bool isCurrentlyHeavyBreathing = false;
     private float heavyBreathingTimer = 0f; // Tracks time spent in heavy breathing
+    private bool isInLight = false; // Tracks if the player is in a "light" area
 
     void Start()
     {
@@ -43,16 +45,20 @@ public class BreathingMechanic : MonoBehaviour
         {
             Debug.LogError("Flashlight Light component not assigned!");
         }
+
+        if (playerObject == null)
+        {
+            Debug.LogError("Player Object not assigned!");
+        }
     }
 
     void Update()
     {
-        // Handle player breathing based on danger state and flashlight
+        // Handle player breathing based on danger state, flashlight, and light zones
         if (isInDanger)
         {
             StartHeavyBreathing(); // Override flashlight logic
-            flashlightOffTimer = 0f; // Reset the flashlight-related timer
-            flashlightOnTimer = 0f; // Reset the on-timer to avoid interference
+            ResetTimers();
         }
         else
         {
@@ -69,10 +75,16 @@ public class BreathingMechanic : MonoBehaviour
                     HandleFlashlightOff();
                 }
             }
+
+            // Prevent heavy breathing if the player is in a "light" zone
+            if (isInLight && isCurrentlyHeavyBreathing)
+            {
+                StartNormalBreathing();
+            }
         }
 
         // Check if heavy breathing has lasted long enough to trigger haunting
-        if (isCurrentlyHeavyBreathing)
+        if (isCurrentlyHeavyBreathing && !isInLight)
         {
             heavyBreathingTimer += Time.deltaTime;
 
@@ -84,10 +96,8 @@ public class BreathingMechanic : MonoBehaviour
         }
         else
         {
-            heavyBreathingTimer = 0f; // Reset timer if heavy breathing stops
+            heavyBreathingTimer = 0f; // Reset timer if heavy breathing stops or player is in light
         }
-
-        Debug.Log($"Player Breathing: {(isCurrentlyHeavyBreathing ? "Heavy" : "Normal")} | Timer (Off): {flashlightOffTimer:F1} | Timer (On): {flashlightOnTimer:F1}");
     }
 
     private void HandleFlashlightOff()
@@ -95,7 +105,7 @@ public class BreathingMechanic : MonoBehaviour
         flashlightOffTimer += Time.deltaTime;
         flashlightOnTimer = 0f; // Reset on-timer since flashlight is off
 
-        if (flashlightOffTimer >= heavyBreathingDelay && !isCurrentlyHeavyBreathing)
+        if (flashlightOffTimer >= heavyBreathingDelay && !isCurrentlyHeavyBreathing && !isInLight)
         {
             StartHeavyBreathing();
         }
@@ -154,5 +164,29 @@ public class BreathingMechanic : MonoBehaviour
         yield return new WaitForSeconds(hauntingDuration);
         hauntingAudioSource.Stop();
         Debug.Log("Haunting ended.");
+    }
+
+    private void ResetTimers()
+    {
+        flashlightOffTimer = 0f;
+        flashlightOnTimer = 0f;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Light") && other.gameObject == playerObject)
+        {
+            isInLight = true;
+            Debug.Log("Player entered a light zone.");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Light") && other.gameObject == playerObject)
+        {
+            isInLight = false;
+            Debug.Log("Player exited the light zone.");
+        }
     }
 }
