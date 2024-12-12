@@ -1,0 +1,11 @@
+Model Information:
+* title:	Shelf
+* source:	https://sketchfab.com/3d-models/shelf-c49fc726b7d748799517820a9202e8d6
+* author:	FaelanLeylea (https://sketchfab.com/FaelanLeylea)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Shelf" (https://sketchfab.com/3d-models/shelf-c49fc726b7d748799517820a9202e8d6) by FaelanLeylea (https://sketchfab.com/FaelanLeylea) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

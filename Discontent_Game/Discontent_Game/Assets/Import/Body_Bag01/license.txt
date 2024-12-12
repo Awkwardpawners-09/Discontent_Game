@@ -1,0 +1,11 @@
+Model Information:
+* title:	Body Bag01
+* source:	https://sketchfab.com/3d-models/body-bag01-b29baa9d4ef54b5c96a32c6ce0584ea0
+* author:	AaronJC (https://sketchfab.com/AaronJC)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Body Bag01" (https://sketchfab.com/3d-models/body-bag01-b29baa9d4ef54b5c96a32c6ce0584ea0) by AaronJC (https://sketchfab.com/AaronJC) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
