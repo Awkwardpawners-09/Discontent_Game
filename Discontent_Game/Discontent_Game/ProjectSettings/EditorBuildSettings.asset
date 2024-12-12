@@ -12,6 +12,30 @@ EditorBuildSettings:
     path: Assets/Scenes/StartingLoop.unity
     guid: 89968816239c4f641b9b9180a5835bbf
   - enabled: 1
-    path: Assets/Scenes/Loop1.unity
-    guid: 62d8ef6bc997c724db83ac6f90f76815
+    path: Assets/Scenes/Loop 2.unity
+    guid: f32cdd678c98b4244ad529e4cb5afc6c
+  - enabled: 1
+    path: Assets/Scenes/Loop 3.unity
+    guid: cf21fd900909c554282fbd92641eccbd
+  - enabled: 1
+    path: Assets/Scenes/Loop 4.unity
+    guid: 567dec9ebbba748438dc3ad4692abba6
+  - enabled: 1
+    path: Assets/Scenes/Loop 5.unity
+    guid: 1a65282c80d8fca4bb0b332745e61c03
+  - enabled: 1
+    path: Assets/Scenes/Loop 6.unity
+    guid: 5b12561bea6a86c42b00e66d61d858f1
+  - enabled: 1
+    path: Assets/Scenes/Loop 7.unity
+    guid: 7f2ebbe42ff56e041b09596426768416
+  - enabled: 1
+    path: Assets/Scenes/Loop 8.unity
+    guid: 55249de3286350d4f98f88e22ee28705
+  - enabled: 1
+    path: Assets/Scenes/Loop 9.unity
+    guid: 3ba2ecf60e0139441837bf1bc49c4e72
+  - enabled: 1
+    path: Assets/Scenes/Final Loop.unity
+    guid: f2cae72336e76d0409691faedc9f43f4
   m_configObjects: {}
