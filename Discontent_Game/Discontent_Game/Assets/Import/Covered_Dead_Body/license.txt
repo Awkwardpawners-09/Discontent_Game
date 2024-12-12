@@ -1,0 +1,11 @@
+Model Information:
+* title:	Covered Dead Body
+* source:	https://sketchfab.com/3d-models/covered-dead-body-5fdf4627354f4bf5a1932c533105a6a7
+* author:	Nadir (https://sketchfab.com/thewalkdead28)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Covered Dead Body" (https://sketchfab.com/3d-models/covered-dead-body-5fdf4627354f4bf5a1932c533105a6a7) by Nadir (https://sketchfab.com/thewalkdead28) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
