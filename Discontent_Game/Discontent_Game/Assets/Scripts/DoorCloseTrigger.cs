@@ -40,7 +40,15 @@ public class DoorCloseTrigger : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
-            Debug.LogError("AudioSource component is missing!");
+            Debug.Log("No AudioSource found on this GameObject. Adding one dynamically.");
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Assign the animation sound to the AudioSource
+        if (animationSound != null)
+        {
+            audioSource.clip = animationSound;
+            audioSource.playOnAwake = false; // Ensure the sound doesn't play automatically
         }
     }
 
@@ -59,7 +67,7 @@ public class DoorCloseTrigger : MonoBehaviour
             // Play the sound if assigned
             if (animationSound != null && audioSource != null)
             {
-                audioSource.PlayOneShot(animationSound);
+                audioSource.Play();
                 Debug.Log("Animation sound played.");
             }
 
