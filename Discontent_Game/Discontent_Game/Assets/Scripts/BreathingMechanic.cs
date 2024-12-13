@@ -12,65 +12,51 @@ public class BreathingMechanic : MonoBehaviour
 
     [Header("Breathing Timers")]
     public float heavyBreathingDelay = 8f; // Time in seconds before heavy breathing starts
+    public float safeZoneRecoveryTime = 6f; // Time required to recover in a safe zone
     public float hauntingTriggerDelay = 12f; // Time in seconds before haunting starts after heavy breathing
     public float hauntingDuration = 30f; // Duration of haunting sound in seconds
 
-    [Header("Safe Zones")]
-    public List<GameObject> safeZoneObjects; // Assign multiple safe zone objects in the Inspector
-
     private AudioSource breathingAudioSource;
     private AudioSource hauntingAudioSource;
-    private bool isFlashlightOn = true;
     private bool isCurrentlyHeavyBreathing = false;
     private float heavyBreathingTimer = 0f; // Tracks time spent in heavy breathing
-    private HashSet<GameObject> currentlyCollidingSafeZones = new HashSet<GameObject>(); // Keep track of colliding safe zones
+    private float recoveryTimer = 0f; // Tracks continuous recovery in safe zones
+    private int safeZoneCount = 0; // Tracks the number of safe zones the player is inside
 
     void Start()
     {
-        // Initialize the breathing audio source
+        // Initialize audio sources
         breathingAudioSource = gameObject.AddComponent<AudioSource>();
-        breathingAudioSource.loop = true;
-        breathingAudioSource.playOnAwake = false;
-
-        // Initialize the haunting audio source
         hauntingAudioSource = gameObject.AddComponent<AudioSource>();
+
+        breathingAudioSource.loop = true;
         hauntingAudioSource.loop = false;
-        hauntingAudioSource.playOnAwake = false;
 
-        if (flashlight == null)
-        {
-            Debug.LogError("Flashlight Light component not assigned!");
-        }
-
-        // Start normal breathing by default
         StartNormalBreathing();
     }
 
     void Update()
     {
-        // Update flashlight state
-        if (flashlight != null)
-        {
-            isFlashlightOn = flashlight.enabled;
-        }
-
-        // Check if the player is "safe"
-        bool isPlayerSafe = isFlashlightOn || currentlyCollidingSafeZones.Count > 0;
-
-        // Debug log to see the current state
-        Debug.Log($"Is Player Safe: {isPlayerSafe}, Flashlight On: {isFlashlightOn}, Safe Zones Count: {currentlyCollidingSafeZones.Count}");
+        bool isPlayerSafe = flashlight.enabled || safeZoneCount > 0;
 
         if (isPlayerSafe)
         {
             if (isCurrentlyHeavyBreathing)
             {
-                StartNormalBreathing();
+                recoveryTimer += Time.deltaTime;
+                if (recoveryTimer >= safeZoneRecoveryTime)
+                {
+                    StartNormalBreathing();
+                }
             }
-            heavyBreathingTimer = 0f; // Reset heavy breathing timer
+            else
+            {
+                heavyBreathingTimer = 0f; // Reset heavy breathing timer
+            }
         }
         else
         {
-            // Increment heavy breathing timer if not "safe"
+            recoveryTimer = 0f; // Reset recovery timer
             heavyBreathingTimer += Time.deltaTime;
 
             if (!isCurrentlyHeavyBreathing && heavyBreathingTimer >= heavyBreathingDelay)
@@ -78,21 +64,19 @@ public class BreathingMechanic : MonoBehaviour
                 StartHeavyBreathing();
             }
 
-            // Check if heavy breathing has lasted long enough to trigger haunting
             if (isCurrentlyHeavyBreathing && heavyBreathingTimer >= hauntingTriggerDelay)
             {
                 TriggerHaunting();
-                heavyBreathingTimer = 0f; // Reset the timer after triggering haunting
+                heavyBreathingTimer = 0f; // Reset after haunting
             }
         }
     }
 
     private void StartHeavyBreathing()
     {
-        if (heavyBreathingSound != null && breathingAudioSource.clip != heavyBreathingSound)
+        if (heavyBreathingSound != null)
         {
             breathingAudioSource.clip = heavyBreathingSound;
-            breathingAudioSource.volume = 1f; // Adjust volume as needed
             breathingAudioSource.Play();
             isCurrentlyHeavyBreathing = true;
             Debug.Log("Heavy Breathing started.");
@@ -101,10 +85,9 @@ public class BreathingMechanic : MonoBehaviour
 
     private void StartNormalBreathing()
     {
-        if (normalBreathingSound != null && breathingAudioSource.clip != normalBreathingSound)
+        if (normalBreathingSound != null)
         {
             breathingAudioSource.clip = normalBreathingSound;
-            breathingAudioSource.volume = 0.7f; // Adjust volume as needed
             breathingAudioSource.Play();
             isCurrentlyHeavyBreathing = false;
             Debug.Log("Normal Breathing started.");
@@ -116,38 +99,26 @@ public class BreathingMechanic : MonoBehaviour
         if (hauntingSound != null)
         {
             hauntingAudioSource.clip = hauntingSound;
-            hauntingAudioSource.volume = 1f; // Adjust volume as needed
             hauntingAudioSource.Play();
-            Debug.Log("Haunting triggered!");
-
             StartCoroutine(StopHauntingAfterDuration());
+            Debug.Log("Haunting triggered.");
         }
     }
 
-    private IEnumerator StopHauntingAfterDuration()
+    private System.Collections.IEnumerator StopHauntingAfterDuration()
     {
         yield return new WaitForSeconds(hauntingDuration);
         hauntingAudioSource.Stop();
         Debug.Log("Haunting ended.");
     }
 
-    void OnTriggerEnter(Collider other)
+    public void EnterSafeZone()
     {
-        // Add to the set if the player collides with a safe zone
-        if (safeZoneObjects.Contains(other.gameObject))
-        {
-            currentlyCollidingSafeZones.Add(other.gameObject);
-            Debug.Log($"Player entered a safe zone: {other.gameObject.name}");
-        }
+        safeZoneCount++;
     }
 
-    void OnTriggerExit(Collider other)
+    public void ExitSafeZone()
     {
-        // Remove from the set if the player exits a safe zone
-        if (currentlyCollidingSafeZones.Contains(other.gameObject))
-        {
-            currentlyCollidingSafeZones.Remove(other.gameObject);
-            Debug.Log($"Player exited a safe zone: {other.gameObject.name}");
-        }
+        safeZoneCount = Mathf.Max(0, safeZoneCount - 1); // Ensure the count doesn't go below zero
     }
 }
