@@ -95,6 +95,10 @@ public class MovementController : MonoBehaviour
                 int randomIndex = Random.Range(0, footstepSounds.Length);
                 footstepAudioSource.clip = footstepSounds[randomIndex];
                 footstepAudioSource.volume = footstepVolume;
+
+                // Add random pitch variation
+                footstepAudioSource.pitch = Random.Range(0.9f, 1.1f);
+
                 footstepAudioSource.Play();
 
                 // Reset the footstep timer

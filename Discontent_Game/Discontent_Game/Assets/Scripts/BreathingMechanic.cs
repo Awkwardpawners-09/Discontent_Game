@@ -10,6 +10,10 @@ public class BreathingMechanic : MonoBehaviour
     public AudioClip heavyBreathingSound; // Audio for heavy breathing
     public AudioClip hauntingSound; // Audio for the haunting event
 
+    [Header("Breathing Volumes")]
+    public float normalBreathingVolume = 0.7f; // Volume for normal breathing
+    public float heavyBreathingVolume = 0.9f; // Volume for heavy breathing
+
     [Header("Breathing Timers")]
     public float heavyBreathingDelay = 8f; // Time in seconds before heavy breathing starts
     public float safeZoneRecoveryTime = 6f; // Time required to recover in a safe zone
@@ -77,6 +81,7 @@ public class BreathingMechanic : MonoBehaviour
         if (heavyBreathingSound != null)
         {
             breathingAudioSource.clip = heavyBreathingSound;
+            breathingAudioSource.volume = heavyBreathingVolume; // Adjust heavy breathing volume
             breathingAudioSource.Play();
             isCurrentlyHeavyBreathing = true;
             Debug.Log("Heavy Breathing started.");
@@ -88,6 +93,7 @@ public class BreathingMechanic : MonoBehaviour
         if (normalBreathingSound != null)
         {
             breathingAudioSource.clip = normalBreathingSound;
+            breathingAudioSource.volume = normalBreathingVolume; // Adjust normal breathing volume
             breathingAudioSource.Play();
             isCurrentlyHeavyBreathing = false;
             Debug.Log("Normal Breathing started.");

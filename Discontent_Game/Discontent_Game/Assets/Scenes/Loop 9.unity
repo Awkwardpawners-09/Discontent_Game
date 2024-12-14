@@ -35297,7 +35297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &885873918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43937,14 +43937,12 @@ MonoBehaviour:
     type: 3}
   heavyBreathingSound: {fileID: 8300000, guid: c56cef921d2a47849acf63173d35086f, type: 3}
   hauntingSound: {fileID: 8300000, guid: 58390c885b213814cbb9cfe6ba4280b8, type: 3}
+  normalBreathingVolume: 0.7
+  heavyBreathingVolume: 0.9
   heavyBreathingDelay: 8
+  safeZoneRecoveryTime: 6
   hauntingTriggerDelay: 12
   hauntingDuration: 40
-  safeZoneObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1001 &1057917939
 PrefabInstance:
   m_ObjectHideFlags: 0
