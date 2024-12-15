@@ -1,26 +1,44 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JumpTrigger : MonoBehaviour
 {
     public AudioSource Scream;
     public GameObject ThePlayer;
     public GameObject JumpCam;
-    public GameObject FlashImg;
-    void OnTriggerEnter()
+    public CanvasGroup FadeCanvasGroup;
+
+    public float jumpscareDuration = 2.0f;
+    public float fadeDuration = 2.0f;
+
+    void OnTriggerEnter(Collider other)
     {
-        Scream.Play();
-        JumpCam.SetActive(true);
-        ThePlayer.SetActive(false);
-        FlashImg.SetActive(true);
-        StartCoroutine(EndJump());
+        if (other.gameObject == ThePlayer)
+        {
+            Scream.Play();
+            JumpCam.SetActive(true);
+            ThePlayer.SetActive(false);
+            StartCoroutine(HandleJumpscare());
+        }
     }
-    IEnumerator EndJump()
+
+    IEnumerator HandleJumpscare()
     {
-        yield return new WaitForSeconds(2.03f);
-        ThePlayer.SetActive(true);
-        JumpCam.SetActive(false);
-        FlashImg.SetActive(false);
+        yield return new WaitForSeconds(jumpscareDuration);
+        StartCoroutine(FadeAndReset());
+    }
+
+    IEnumerator FadeAndReset()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            FadeCanvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+            yield return null;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
