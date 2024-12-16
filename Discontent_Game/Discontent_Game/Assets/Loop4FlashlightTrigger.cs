@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Loop4FlashlightTrigger : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class Loop4FlashlightTrigger : MonoBehaviour
     public GameObject interactText; // Assign the interact text UI object in the Inspector
 
     [Header("Flashlight Settings")]
-    public GameObject flashlightObject; // The flashlight object to be disabled
+    public GameObject flashlightFeatureObject; // The object that contains the Flashlight_Feature script
     public GameObject animationTarget; // Object to play the animation on
     public string animationName; // Name of the animation to play
     public AudioClip pickupSound; // Sound to play on pickup
@@ -20,6 +19,7 @@ public class Loop4FlashlightTrigger : MonoBehaviour
 
     private bool isPlayerColliding = false; // Tracks if the player is colliding
     private AudioSource audioSource; // Audio source to play the sound
+    private Flashlight_Feature flashlightFeature; // Reference to the Flashlight_Feature script
 
     void Start()
     {
@@ -31,13 +31,31 @@ public class Loop4FlashlightTrigger : MonoBehaviour
         // Create or get an AudioSource component
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
+
+        // Cache the Flashlight_Feature component
+        if (flashlightFeatureObject != null)
+        {
+            flashlightFeature = flashlightFeatureObject.GetComponent<Flashlight_Feature>();
+            if (flashlightFeature != null)
+            {
+                flashlightFeature.enabled = false; // Disable the feature at start
+            }
+            else
+            {
+                Debug.LogError("No Flashlight_Feature script found on the specified flashlightFeatureObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("FlashlightFeatureObject is not assigned in the inspector.");
+        }
     }
 
     void Update()
     {
         if (isPlayerColliding && Input.GetKeyDown(KeyCode.E))
         {
-            PickupFlashlight();
+            InteractWithFlashlight();
         }
     }
 
@@ -65,11 +83,11 @@ public class Loop4FlashlightTrigger : MonoBehaviour
         }
     }
 
-    private void PickupFlashlight()
+    private void InteractWithFlashlight()
     {
-        if (flashlightObject != null)
+        if (flashlightFeature != null)
         {
-            flashlightObject.SetActive(false); // Disable the flashlight object
+            flashlightFeature.enabled = true; // Enable the Flashlight_Feature script
         }
 
         if (animationTarget != null)
@@ -93,6 +111,6 @@ public class Loop4FlashlightTrigger : MonoBehaviour
             interactText.SetActive(false); // Hide interact text after interaction
         }
 
-        Debug.Log("Flashlight picked up!");
+        Debug.Log("Flashlight interaction completed!");
     }
 }
