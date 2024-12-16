@@ -10,16 +10,19 @@ public class Loop4FlashlightTrigger : MonoBehaviour
 
     [Header("Flashlight Settings")]
     public GameObject flashlightFeatureObject; // The object that contains the Flashlight_Feature script
-    public GameObject animationTarget; // Object to play the animation on
-    public string animationName; // Name of the animation to play
-    public AudioClip pickupSound; // Sound to play on pickup
 
-    [Header("Audio Settings")]
-    public float audioVolume = 0.8f; // Volume for the pickup sound
+    [Header("Door Settings")]
+    public GameObject doorObject; // Door object with Animator
+    public string doorAnimationName; // Name of the door animation to play
+    public AudioClip doorSound; // Assignable audio file to play for the door
+    public float doorSoundVolume = 1.0f; // Volume for the door sound
+
+    [Header("Other Settings")]
+    public GameObject objectToDisable; // Object to disable after interaction
 
     private bool isPlayerColliding = false; // Tracks if the player is colliding
-    private AudioSource audioSource; // Audio source to play the sound
     private Flashlight_Feature flashlightFeature; // Reference to the Flashlight_Feature script
+    private AudioSource audioSource; // Internal AudioSource for playing sounds
 
     void Start()
     {
@@ -28,7 +31,7 @@ public class Loop4FlashlightTrigger : MonoBehaviour
             interactText.SetActive(false); // Hide interact text at start
         }
 
-        // Create or get an AudioSource component
+        // Create or get an AudioSource component for playing sounds
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
@@ -38,7 +41,7 @@ public class Loop4FlashlightTrigger : MonoBehaviour
             flashlightFeature = flashlightFeatureObject.GetComponent<Flashlight_Feature>();
             if (flashlightFeature != null)
             {
-                flashlightFeature.enabled = false; // Disable the feature at start
+                flashlightFeature.enabled = false; // Disable the flashlight feature at start
             }
             else
             {
@@ -55,7 +58,7 @@ public class Loop4FlashlightTrigger : MonoBehaviour
     {
         if (isPlayerColliding && Input.GetKeyDown(KeyCode.E))
         {
-            InteractWithFlashlight();
+            InteractWithFlashlightAndDoor();
         }
     }
 
@@ -83,34 +86,52 @@ public class Loop4FlashlightTrigger : MonoBehaviour
         }
     }
 
-    private void InteractWithFlashlight()
+    private void InteractWithFlashlightAndDoor()
     {
+        // Enable the Flashlight_Feature script
         if (flashlightFeature != null)
         {
-            flashlightFeature.enabled = true; // Enable the Flashlight_Feature script
+            flashlightFeature.enabled = true;
         }
 
-        if (animationTarget != null)
+        // Play the door animation
+        if (doorObject != null)
         {
-            Animator animator = animationTarget.GetComponent<Animator>();
-            if (animator != null && !string.IsNullOrEmpty(animationName))
+            Animator animator = doorObject.GetComponent<Animator>();
+            if (animator != null && !string.IsNullOrEmpty(doorAnimationName))
             {
-                animator.Play(animationName); // Play the specified animation
+                animator.Play(doorAnimationName); // Play the specified animation
+            }
+            else
+            {
+                Debug.LogError("Animator or animation name is missing on the door object.");
             }
         }
 
-        if (pickupSound != null)
+        // Play the assigned door sound
+        if (doorSound != null)
         {
-            audioSource.clip = pickupSound;
-            audioSource.volume = audioVolume;
-            audioSource.Play(); // Play the pickup sound
+            audioSource.clip = doorSound;
+            audioSource.volume = doorSoundVolume;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("No door sound assigned!");
         }
 
+        // Hide the interact text
         if (interactText != null)
         {
-            interactText.SetActive(false); // Hide interact text after interaction
+            interactText.SetActive(false);
         }
 
-        Debug.Log("Flashlight interaction completed!");
+        // Disable the specified object
+        if (objectToDisable != null)
+        {
+            objectToDisable.SetActive(false);
+        }
+
+        Debug.Log("Flashlight and door interaction completed!");
     }
 }

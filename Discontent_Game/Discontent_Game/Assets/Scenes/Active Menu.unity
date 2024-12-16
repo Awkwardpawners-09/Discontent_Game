@@ -11740,7 +11740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &300961334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15982,7 +15982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &419347558
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25795,8 +25795,8 @@ MonoBehaviour:
   startButton: {fileID: 743654599}
   clickSound: {fileID: 8300000, guid: 9ba79df969b169b428b7dccbac26cf86, type: 3}
   canvasGroup: {fileID: 350576023}
-  nextSceneName: StartingLoop
-  fadeDuration: 1
+  nextSceneName: Beta Game with Loops
+  fadeDuration: 4
 --- !u!4 &747084944 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4740748365562023222, guid: 5b9293fff48cb404fa9dd8d22c47b0a9,
@@ -35347,6 +35347,10 @@ MonoBehaviour:
   cameraSensitivity: 100
   cameraAccelaration: 2
   hand: {fileID: 474510488}
+  enableZoom: 1
+  zoomedFOV: 30
+  defaultFOV: 60
+  zoomSpeed: 5
 --- !u!114 &1057230434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35364,11 +35368,12 @@ MonoBehaviour:
     type: 3}
   heavyBreathingSound: {fileID: 8300000, guid: c56cef921d2a47849acf63173d35086f, type: 3}
   hauntingSound: {fileID: 0}
+  normalBreathingVolume: 0.7
+  heavyBreathingVolume: 0.9
   heavyBreathingDelay: 8
-  normalBreathingDelay: 5
+  safeZoneRecoveryTime: 6
   hauntingTriggerDelay: 12
   hauntingDuration: 30
-  isInDanger: 0
 --- !u!1001 &1057917939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54934,7 +54939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.1, y: -4.5}
+  m_AnchoredPosition: {x: -15.85, y: -1.33}
   m_SizeDelta: {x: 3.362, y: 1.364}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532997924

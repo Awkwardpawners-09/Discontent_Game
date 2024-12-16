@@ -28,7 +28,7 @@ public class Flashlight_Feature : MonoBehaviour
     {
         if (flashlight == null)
         {
-            //Debug.LogError("Flashlight (Light) is not assigned!");
+            Debug.LogError("Flashlight (Light) is not assigned!");
             return;
         }
 
@@ -41,17 +41,19 @@ public class Flashlight_Feature : MonoBehaviour
         audioSource.playOnAwake = false;
 
         currentBattery = maxBattery;
+
+        // Ensure the flashlight starts in the correct state
         flashlight.intensity = maxIntensity;
         flashlight.enabled = false; // Flashlight is off by default
         flashlightOn = false;
         isOnCooldown = false;
         isFlickering = false;
+
+        Debug.Log("Initialization complete. Flashlight is disabled.");
     }
 
     void Update()
     {
-        //Debug.Log($"Battery: {currentBattery:F1}%"); // Debug log to show battery level
-
         HandleFlashlightToggle();
         UpdateBattery();
         UpdateFlashlightIntensity();
@@ -68,6 +70,8 @@ public class Flashlight_Feature : MonoBehaviour
             else if (currentBattery > 0 || flashlightOn) // Allow turning off even when battery is low
             {
                 flashlightOn = !flashlightOn;
+
+                // Explicitly enable/disable to force Unity to update its state
                 flashlight.enabled = flashlightOn;
 
                 // Enable or disable the linked object
@@ -81,6 +85,8 @@ public class Flashlight_Feature : MonoBehaviour
                     audioSource.clip = flashlightToggleSound;
                     audioSource.Play();
                 }
+
+                Debug.Log($"Flashlight toggled: {(flashlightOn ? "On" : "Off")}");
             }
         }
     }
@@ -150,7 +156,7 @@ public class Flashlight_Feature : MonoBehaviour
             audioSource.Play();
         }
 
-        //Debug.Log("Battery depleted. Starting cooldown...");
+        Debug.Log("Battery depleted. Starting cooldown...");
 
         // Wait 1 second before starting the cooldown
         yield return new WaitForSeconds(1f);
@@ -159,7 +165,7 @@ public class Flashlight_Feature : MonoBehaviour
         float cooldownTimer = cooldownDuration;
         while (cooldownTimer > 0)
         {
-           // Debug.Log($"Cooldown: {cooldownTimer:F1}s remaining.");
+            Debug.Log($"Cooldown: {cooldownTimer:F1}s remaining.");
             cooldownTimer -= Time.deltaTime;
             yield return null;
         }
@@ -167,7 +173,7 @@ public class Flashlight_Feature : MonoBehaviour
         currentBattery = maxBattery;
         isOnCooldown = false;
 
-        //Debug.Log("Flashlight recharged to 100%. Ready for use.");
+        Debug.Log("Flashlight recharged to 100%. Ready for use.");
     }
 
     private void PlayCooldownWarningSound()
@@ -178,6 +184,6 @@ public class Flashlight_Feature : MonoBehaviour
             audioSource.Play();
         }
 
-        //Debug.Log("Flashlight is on cooldown!");
+        Debug.Log("Flashlight is on cooldown!");
     }
 }

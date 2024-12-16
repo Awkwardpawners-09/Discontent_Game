@@ -101,9 +101,9 @@ public class IntroCamera : MonoBehaviour
             playerAnimator.enabled = false; // Disable the Animator after 18 seconds
         }
 
-        // Ensure the RawImage is fully transparent and inactive
+        // At this point, do NOT disable the RawImage object, it can be used later by another part of the code
+        // Ensure the RawImage is fully transparent but leave it active
         introImage.color = new Color(introImage.color.r, introImage.color.g, introImage.color.b, 0);
-        introImage.gameObject.SetActive(false);
     }
 
     private IEnumerator FadeOutRawImage(RawImage image, float duration)

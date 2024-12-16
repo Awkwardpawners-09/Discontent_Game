@@ -1,14 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BreathingMechanic : MonoBehaviour
 {
-    [Header("Flashlight Reference")]
-    public Light flashlight; // Assign the flashlight Light component in the Inspector
+    [Header("Player References")]
+    public GameObject PlayerObject; // The player object to monitor movement
+    public Transform PlayerCamera; // The camera to monitor rotation
+    public GameObject JumpscareObject; // The jumpscare object to activate during a violation
+    public AudioSource HauntingAudioSource; // The audio source to enable during the haunting
+
+    [Header("Breathing Settings")]
     public AudioClip normalBreathingSound; // Audio for normal breathing
     public AudioClip heavyBreathingSound; // Audio for heavy breathing
-    public AudioClip hauntingSound; // Audio for the haunting event
 
     [Header("Breathing Volumes")]
     public float normalBreathingVolume = 0.7f; // Volume for normal breathing
@@ -20,28 +23,47 @@ public class BreathingMechanic : MonoBehaviour
     public float hauntingTriggerDelay = 12f; // Time in seconds before haunting starts after heavy breathing
     public float hauntingDuration = 30f; // Duration of haunting sound in seconds
 
+    [Header("Movement and Camera Settings")]
+    public float maxAllowedRotation = 180f; // Maximum allowed camera rotation (in degrees)
+    public float allowedMovementDistance = 0.5f; // Maximum allowed player movement from initial position
+
     private AudioSource breathingAudioSource;
-    private AudioSource hauntingAudioSource;
     private bool isCurrentlyHeavyBreathing = false;
     private float heavyBreathingTimer = 0f; // Tracks time spent in heavy breathing
     private float recoveryTimer = 0f; // Tracks continuous recovery in safe zones
     private int safeZoneCount = 0; // Tracks the number of safe zones the player is inside
 
+    private Vector3 initialPlayerPosition;
+    private Quaternion initialCameraRotation;
+    private bool isHauntingActive = false;
+    private bool jumpscareTriggered = false;
+
+    [Header("Flashlight Reference")]
+    public Light flashlight; // Add this reference for flashlight
+
+    [Header("New Feature: Object During Haunting")]
+    public GameObject hauntingObject; // Object to enable during haunting
+
     void Start()
     {
         // Initialize audio sources
         breathingAudioSource = gameObject.AddComponent<AudioSource>();
-        hauntingAudioSource = gameObject.AddComponent<AudioSource>();
+        HauntingAudioSource.loop = false;
 
         breathingAudioSource.loop = true;
-        hauntingAudioSource.loop = false;
 
         StartNormalBreathing();
+
+        // Ensure hauntingObject is initially disabled
+        if (hauntingObject != null)
+        {
+            hauntingObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-        bool isPlayerSafe = flashlight.enabled || safeZoneCount > 0;
+        bool isPlayerSafe = flashlight != null && flashlight.enabled || safeZoneCount > 0;
 
         if (isPlayerSafe)
         {
@@ -74,6 +96,12 @@ public class BreathingMechanic : MonoBehaviour
                 heavyBreathingTimer = 0f; // Reset after haunting
             }
         }
+
+        if (isHauntingActive && !jumpscareTriggered)
+        {
+            // Check for movement and camera rotation violations during haunting
+            CheckForViolations();
+        }
     }
 
     private void StartHeavyBreathing()
@@ -102,20 +130,77 @@ public class BreathingMechanic : MonoBehaviour
 
     private void TriggerHaunting()
     {
-        if (hauntingSound != null)
+        isHauntingActive = true;
+
+        if (HauntingAudioSource != null)
         {
-            hauntingAudioSource.clip = hauntingSound;
-            hauntingAudioSource.Play();
-            StartCoroutine(StopHauntingAfterDuration());
-            Debug.Log("Haunting triggered.");
+            HauntingAudioSource.enabled = true; // Enable haunting audio
+            HauntingAudioSource.Play();
+        }
+
+        if (hauntingObject != null)
+        {
+            hauntingObject.SetActive(true); // Enable the haunting object
+        }
+
+        initialPlayerPosition = PlayerObject.transform.position;
+        initialCameraRotation = PlayerCamera.rotation;
+
+        StartCoroutine(StopHauntingAfterDuration());
+        Debug.Log("Haunting triggered.");
+    }
+
+    private void CheckForViolations()
+    {
+        // Check if the player moved beyond the allowed distance
+        float distanceMoved = Vector3.Distance(initialPlayerPosition, PlayerObject.transform.position);
+        if (distanceMoved > allowedMovementDistance)
+        {
+            TriggerJumpscare("Player moved too far.");
+            return;
+        }
+
+        // Check if the camera rotated beyond the allowed angle
+        float rotationDifference = Quaternion.Angle(initialCameraRotation, PlayerCamera.rotation);
+        if (rotationDifference > maxAllowedRotation)
+        {
+            TriggerJumpscare("Player rotated the camera too far.");
         }
     }
 
-    private System.Collections.IEnumerator StopHauntingAfterDuration()
+    private void TriggerJumpscare(string reason)
+    {
+        jumpscareTriggered = true;
+
+        if (JumpscareObject != null)
+        {
+            JumpscareObject.SetActive(true);
+        }
+
+        Debug.Log($"Jumpscare triggered: {reason}");
+        EndHaunting();
+    }
+
+    private IEnumerator StopHauntingAfterDuration()
     {
         yield return new WaitForSeconds(hauntingDuration);
-        hauntingAudioSource.Stop();
+        EndHaunting();
         Debug.Log("Haunting ended.");
+    }
+
+    private void EndHaunting()
+    {
+        isHauntingActive = false;
+
+        if (HauntingAudioSource != null)
+        {
+            HauntingAudioSource.enabled = false; // Disable haunting audio
+        }
+
+        if (hauntingObject != null)
+        {
+            hauntingObject.SetActive(false); // Disable the haunting object
+        }
     }
 
     public void EnterSafeZone()
