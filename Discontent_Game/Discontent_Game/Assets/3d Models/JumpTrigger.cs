@@ -1,61 +1,88 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  // This ensures you have access to SceneManager
 using UnityEngine.UI;
-using System.Collections; // Added this for IEnumerator support
+using System.Collections;
 
 public class JumpscareTrigger : MonoBehaviour
 {
-    public AudioSource Scream;        // This should be assigned an AudioSource in the Inspector
-    public GameObject ThePlayer;
-    public GameObject JumpCam;
-    public RawImage FadeImage;        // RawImage to handle the fade effect
-    public GameObject Jumpscare;      // The parent object (Jumpscare) that must be enabled
+    public AudioSource Scream;              // Scream sound
+    public GameObject ThePlayer;            // Player object
+    public GameObject JumpCam;              // Camera for jumpscare
+    public RawImage FadeImage;              // RawImage for fade effect
+    public GameObject Jumpscare;            // Parent jumpscare object
+    public float jumpscareDuration = 2.0f;  // Duration of the jumpscare
+    public float fadeDuration = 2.0f;       // Duration for fade effect
 
-    public float jumpscareDuration = 2.0f;
-    public float fadeDuration = 2.0f;
+    // Player respawn position
+    private Vector3 respawnPosition;
+
+    private void Start()
+    {
+        // Set the initial checkpoint (starting position)
+        respawnPosition = ThePlayer.transform.position;
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the player enters the trigger and Jumpscare is enabled
         if (other.gameObject == ThePlayer && Jumpscare.activeSelf)
         {
             Debug.Log("Jumpscare Triggered!");
+
             if (Scream != null)
             {
-                Scream.Play(); // Play the scream sound
+                Scream.Play();
             }
-            JumpCam.SetActive(true); // Enable the JumpCam
-            ThePlayer.SetActive(false); // Disable the player object
+
+            JumpCam.SetActive(true);
+            ThePlayer.SetActive(false); // "Disable" the player for jumpscare effect
+
+            // Disable this collider so jumpscare doesn't trigger again
+            GetComponent<Collider>().enabled = false;
+
             StartCoroutine(HandleJumpscare());
         }
     }
 
     IEnumerator HandleJumpscare()
     {
-        yield return new WaitForSeconds(jumpscareDuration); // Wait for the duration of the jumpscare
-        StartCoroutine(FadeAndReset());
+        yield return new WaitForSeconds(jumpscareDuration);
+        StartCoroutine(FadeAndRespawn());
     }
 
-    IEnumerator FadeAndReset()
+    IEnumerator FadeAndRespawn()
     {
         float elapsedTime = 0f;
 
-        // Ensure the RawImage starts fully transparent
-        SetFadeImageAlpha(0f);
-
+        // Fade-in effect
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Clamp01(elapsedTime / fadeDuration); // Fade in effect
-            SetFadeImageAlpha(newAlpha);
+            elapsedTime += Time.unscaledDeltaTime;
+            float alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+            SetFadeImageAlpha(alpha);
             yield return null;
         }
 
-        // Reload the current scene after fade is complete
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        RespawnPlayer(); // Respawn the player at the latest checkpoint
+
+        // Fade-out effect
+        elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            float alpha = Mathf.Clamp01(1 - (elapsedTime / fadeDuration));
+            SetFadeImageAlpha(alpha);
+            yield return null;
+        }
     }
 
-    private void SetFadeImageAlpha(float alpha)
+    void RespawnPlayer()
+    {
+        Debug.Log("Respawning player at the latest checkpoint!");
+        ThePlayer.transform.position = respawnPosition; // Move player to checkpoint
+        ThePlayer.SetActive(true);                     // Reactivate the player
+        JumpCam.SetActive(false);                      // Disable jumpscare camera
+    }
+
+    void SetFadeImageAlpha(float alpha)
     {
         if (FadeImage != null)
         {
@@ -65,13 +92,10 @@ public class JumpscareTrigger : MonoBehaviour
         }
     }
 
-    // Make sure this object has a trigger collider
-    private void OnDrawGizmos()
+    // Call this from a Checkpoint object when the player reaches it
+    public void UpdateCheckpoint(Vector3 checkpointPosition)
     {
-        Collider col = GetComponent<Collider>();
-        if (col != null && !col.isTrigger)
-        {
-            Debug.LogWarning("The collider on this object is not set to trigger.");
-        }
+        respawnPosition = checkpointPosition;
+        Debug.Log("Checkpoint updated to position: " + checkpointPosition);
     }
 }
